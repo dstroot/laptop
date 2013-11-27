@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for MANIFEST in Manifest.*; do
+for MANIFEST in ../Manifest.*; do
   FILENAME=$(printf "$MANIFEST" | sed s/Manifest\.//)
   rm -f "$FILENAME"
 
@@ -9,7 +9,7 @@ for MANIFEST in Manifest.*; do
   while read file; do
     printf "Including: $file\n"
 
-    cat "$file" >> "$FILENAME"
+    cat "../$file" >> "$FILENAME"
 
     printf "### end $file\n\n" >> "$FILENAME"
   done < "$MANIFEST"

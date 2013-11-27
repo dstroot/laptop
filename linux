@@ -26,6 +26,22 @@ fi
 fancy_echo() {
   printf "\n%b\n" "$1"
 }
+
+info () {
+  printf "  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1\n"
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+}
 ### end common-components/shared-functions
 
 if ! grep -qiE 'precise|quantal|wheezy|raring|jessie|saucy' /etc/os-release
@@ -105,22 +121,17 @@ fancy_echo "Installing ruby-build, to install Rubies ..."
   git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
 ### end linux-components/rbenv
 
-fancy_echo "Installing Ruby 2.0.0-p247 ..."
-  rbenv install 2.0.0-p247
+fancy_echo "Installing Ruby 2.0.0-p353 ..."
+  rbenv install 2.0.0-p353
 
-fancy_echo "Setting Ruby 2.0.0-p247 as global default Ruby ..."
-  rbenv global 2.0.0-p247
+fancy_echo "Setting Ruby 2.0.0-p353 as global default Ruby ..."
+  rbenv global 2.0.0-p353
   rbenv rehash
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
 
-fancy_echo "Installing critical Ruby gems for Rails development ..."
-  gem install bundler pg rails unicorn --no-document
-
-fancy_echo "Installing GitHub CLI client ..."
-  curl http://hub.github.com/standalone -sLo ~/.bin/hub
-  chmod +x ~/.bin/hub
+fancy_echo "Ruby environment completed"
 ### end common-components/ruby-environment
 
 fancy_echo "Installing Heroku CLI client ..."

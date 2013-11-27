@@ -1,0 +1,43 @@
+###############################################################################
+# MAINTAIN YOUR GEM LIST IN THE ARRAY BELOW                                         
+###############################################################################
+
+gem_array=( 
+    jekyll                  # For static blogging/Bootstrap
+    s3_website              # For pushing to Amazon S3
+    cloudapp_api            # For bin/cloudapp
+    rdiscount               # Better faster markdown processing
+)
+
+###############################################################################
+# Main                                                               
+###############################################################################
+
+fancy_echo "Installing Ruby gems"
+
+for i in "${gem_array[@]}"
+do
+    # If it's not installed then install it!
+    if [[ -z $(gem query | grep $i) ]]
+        then
+            fancy_echo "Installing $i"
+            gem install $i
+    
+    # If it's installed then update it!
+    elif [[ -n $(gem query | grep $i) ]]
+        then
+            fancy_echo "Updating $i"
+            gem update $i
+    
+    else
+        fancy_echo "ERROR! How did we get here?"
+    fi
+done
+
+###############################################################################
+# Cleanup                                                        
+###############################################################################
+
+gem cleanup
+
+fancy_echo "Ruby Gem installation complete"
